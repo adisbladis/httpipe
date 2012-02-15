@@ -1,0 +1,36 @@
+#!/bin/sh
+
+#Varbls
+PREFIX=/usr/local/
+
+#Handle arguments
+for argv in $@ ;do
+    case $argv in
+	--prefix=*)
+            PREFIX=$(echo $argv | cut -d= -f2)
+	    ;;
+	*)
+	    echo "Unknown argument" $argv >> /dev/stderr
+	    exit 1
+	    ;;
+    esac
+done
+
+#Checks
+echo "Checking for python3"
+python3 -V 2> /dev/null
+if [ ${?} -ne 0 ]; then
+    echo "No python3 interpreter installed" >> /dev/stderr
+    exit 1
+fi
+
+echo "
+all:
+	@echo "Run make install as root"
+
+install:
+	@install httpipe.py ${PREFIX}/bin/httpipe
+
+" > Makefile
+
+echo Now run \"make install\" as root
