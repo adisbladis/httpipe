@@ -16,7 +16,7 @@ class requestHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         if args.f:
             self.send_header('Content-Disposition', 'attachment; filename=%s' % (args.f))
-        self.send_header('Content-type', 'application/octet-stream')
+        self.send_header('Content-type', '%s' % (args.m))
         self.end_headers()
 
         sys.stdin = sys.stdin.detach()
@@ -30,6 +30,7 @@ parser = argparse.ArgumentParser(description='Httpipe - Reads data from stdin an
 parser.add_argument('-p', action='store', required=False, type=int, default=8080, help='Port (default: 8080)')
 parser.add_argument('-a', action='store', required=False, type=str, default='0.0.0.0', help='Address (default: 0.0.0.0)')
 parser.add_argument('-f', action='store', required=False, type=str, default=False, help='Set filename header')
+parser.add_argument('-c', action='store', required=False, type=str, default='application/octet-stream', help='Set content-type header (default: application/octet-stream)')
 args=parser.parse_args()
 
 httpd = http.server.HTTPServer((args.a,args.p),requestHandler)
