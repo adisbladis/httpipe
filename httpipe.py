@@ -21,10 +21,10 @@ class requestHandler(http.server.BaseHTTPRequestHandler):
 
         sys.stdin = sys.stdin.detach()
         while True:
-            s = sys.stdin.read(128)
+            s = sys.stdin.read(512)
             if not s:
                 break
-            self.wfile.write(memoryview(s))
+            self.wfile.write(s)
 
 parser = argparse.ArgumentParser(description='Httpipe - Reads data from stdin and serves over http')
 parser.add_argument('-p', action='store', required=False, type=int, default=8080, help='Port (default: 8080)')
