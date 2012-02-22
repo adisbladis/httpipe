@@ -23,7 +23,7 @@ if [ ${?} -ne 0 ]; then
     exit 1
 fi
 
-echo 'all:
-	@echo "Run make install as root"
+echo "all:
+	@echo 'Run make install as root'
 install:
-	@install httpipe.py ${PREFIX}/bin/httpipe' > Makefile
+	@install httpipe.py ${PREFIX}/bin/httpipe" > Makefile
