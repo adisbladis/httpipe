@@ -15,8 +15,8 @@ class requestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         if args.f:
-            self.send_header('Content-Disposition', 'attachment; filename=%s' % (args.f))
-        self.send_header('Content-type', '%s' % (args.c))
+            self.send_header('Content-Disposition', 'attachment; filename="{0}"'.format(args.f))
+        self.send_header('Content-type', '{0}'.format(args.c))
         self.end_headers()
 
         sys.stdin = sys.stdin.detach()
